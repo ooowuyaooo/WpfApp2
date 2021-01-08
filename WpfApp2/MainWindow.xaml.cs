@@ -25,12 +25,17 @@ namespace WpfApp2
         public MainWindow()
         {
             InitializeComponent();
-            
+            this.DataContext = new MainviewModel();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
