@@ -24,8 +24,8 @@ namespace WpfApp2
 
         public void Inita()
         {
-            List<string> a = LocalDataAccess.GetInstance().GetTeachers();
-            MyProperty = a[0];
+            MyProperty = LocalDataAccess.GetInstance().GetTeachers()[0];
+            
             Console.WriteLine(MyProperty);
         }
 
