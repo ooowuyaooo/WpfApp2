@@ -1,35 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace WpfApp2
 {
-    public class MainviewModel
+    public class MainviewModel : NotifyBase
     {
-        private string myVar;
+        private string myVar="";
+
+       
 
         public string MyProperty
         {
             get { return myVar; }
-            set { myVar = value; }
+            set
+            {
+                myVar = value;
+                this.DoNotify();
+            }
         }
+
+        bool taskSwitch = true;
+        List<Task> taskList = new List<Task>();
 
         public MainviewModel()
         {
-            Inita();
+            //Inita();
+            this.RefreshViewValueFromDatabase();
         }
 
         public void Inita()
         {
-            MyProperty = LocalDataAccess.GetInstance().GetTeachers()[0];
-            
+
+
+
+            MyProperty = LocalDataAccess.GetInstance().GetTeachers()[1];
+
             Console.WriteLine(MyProperty);
+
+
+            //System.Timers.Timer aTimer = new System.Timers.Timer();
+            //aTimer.Elapsed += new System.Timers.ElapsedEventHandler(dt_Tick);
+            //aTimer.Interval = 1000;//每秒执行一次
+            //aTimer.Enabled = true;
+            //void dt_Tick(object sender, EventArgs e)
+            //{
+
+            //    MyProperty = LocalDataAccess.GetInstance().GetTeachers()[1];
+            //    Console.WriteLine(MyProperty);
+            //}
+
+
+
         }
 
-        
+        private void RefreshViewValueFromDatabase()
+        {
+            var task = Task.Factory.StartNew(new Action(async () =>
+            {
+                while (taskSwitch)
+                {
+                    MyProperty = LocalDataAccess.GetInstance().GetTeachers()[1];
+
+                    await Task.Delay(1000);
+                }
+            }));
+            taskList.Add(task);
+            
+        }
 
 
 

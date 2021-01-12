@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,22 +23,22 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-
         
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = new MainviewModel();
+
+           
         }
+
+       
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        
     }
 }

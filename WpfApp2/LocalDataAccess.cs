@@ -46,7 +46,7 @@ namespace WpfApp2
         private bool DBConnection()
         {
             if (conn == null)
-                conn = new MySqlConnection("server=rm-uf6a477d150fh94852o.mysql.rds.aliyuncs.com;port=3306;user=zhangyi;password=Goodluck2020!; database=testdb;Allow User Variables=True");
+                conn = new MySqlConnection("server=rm-uf6a477d150fh94852o.mysql.rds.aliyuncs.com;port=3306;user=zhangyi;password=Goodluck2020!; database=homeassistant;Allow User Variables=True");
             try
             {
                 conn.Open();
@@ -66,7 +66,7 @@ namespace WpfApp2
                 List<string> result = new List<string>();
                 if (this.DBConnection())
                 {
-                    string sql = "select real_name from users where is_teacher=1";
+                    string sql = "select data from temperature ";
                     adapter = new MySqlDataAdapter(sql, conn);
 
 
@@ -74,7 +74,7 @@ namespace WpfApp2
                     int count = adapter.Fill(table);
                     if (count > 0)
                     {
-                        result = table.AsEnumerable().Select(c => c.Field<string>("real_name")).ToList();
+                        result = table.AsEnumerable().Select(c => c.Field<string>("data")).ToList();
 
                         
                     }
@@ -91,7 +91,11 @@ namespace WpfApp2
             {
                 this.Dispose();
             }
+
+            
         }
+
+       
 
     }
 }

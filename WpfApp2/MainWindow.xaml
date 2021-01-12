@@ -91,10 +91,12 @@
                 <Button Style="{DynamicResource MaterialDesignRaisedButton}" 
                     materialDesign:ShadowAssist.ShadowDepth="Depth3"
                         Margin=" 15 30 15 0" 
-                        Height="60" HorizontalAlignment="Center" Width="250">
+                        Height="60" HorizontalAlignment="Center" Width="250"
+                        >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xe61c;" FontFamily="/#iconfont" FontSize="26"/>
-                        <TextBlock Text="Stack Market" VerticalAlignment="Center" Margin="15 0 0 0"/>
+                        <TextBlock Text="Stack Market" VerticalAlignment="Center" Margin="15 0 0 0"
+                                   />
                     </StackPanel>
                 </Button>
 
