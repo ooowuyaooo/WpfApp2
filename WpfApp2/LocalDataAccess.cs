@@ -66,7 +66,7 @@ namespace WpfApp2
                 List<string> result = new List<string>();
                 if (this.DBConnection())
                 {
-                    string sql = "select data from temperature ";
+                    string sql = "select data from temperature order by id desc limit 2";
                     adapter = new MySqlDataAdapter(sql, conn);
 
 
@@ -95,7 +95,45 @@ namespace WpfApp2
             
         }
 
-       
+        public List<string> GetBigdoorstatus()
+        {
+            try
+            {
+                List<string> result = new List<string>();
+                if (this.DBConnection())
+                {
+                    string sql = "select data from bigdoor order by id desc limit 2";
+                    adapter = new MySqlDataAdapter(sql, conn);
+
+
+                    DataTable table = new DataTable();
+                    int count = adapter.Fill(table);
+                    if (count > 0)
+                    {
+                        result = table.AsEnumerable().Select(c => c.Field<string>("data")).ToList();
+
+
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                this.Dispose();
+            }
+
+
+        }
+
+
+
+
 
     }
 }

@@ -26,6 +26,22 @@ namespace WpfApp2
             }
         }
 
+
+
+        private string myVar1 = "";
+
+
+
+        public string MyProperty1
+        {
+            get { return myVar1; }
+            set
+            {
+                myVar1 = value;
+                this.DoNotify();
+            }
+        }
+
         bool taskSwitch = true;
         List<Task> taskList = new List<Task>();
 
@@ -66,12 +82,24 @@ namespace WpfApp2
             {
                 while (taskSwitch)
                 {
-                    MyProperty = LocalDataAccess.GetInstance().GetTeachers()[1];
+                    MyProperty = LocalDataAccess.GetInstance().GetTeachers()[0];
+                    
 
-                    await Task.Delay(1000);
+                    if (LocalDataAccess.GetInstance().GetBigdoorstatus()[0] == "off")
+                    {
+                        MyProperty1 = "已关闭";
+                    }
+                    else
+                    {
+                        MyProperty1 = "已打开";
+                    }
+
+                    await Task.Delay(3000);
                 }
             }));
             taskList.Add(task);
+
+
             
         }
 
