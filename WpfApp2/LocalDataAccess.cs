@@ -66,7 +66,7 @@ namespace WpfApp2
                 List<string> result = new List<string>();
                 if (this.DBConnection())
                 {
-                    string sql = "select data from temperature order by id desc limit 2";
+                    string sql = "select data from temperature order by id desc limit 6";
                     adapter = new MySqlDataAdapter(sql, conn);
 
 

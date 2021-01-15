@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using LiveCharts;
 
 namespace WpfApp2
 {
@@ -25,6 +26,16 @@ namespace WpfApp2
                 this.DoNotify();
             }
         }
+
+        private ChartValues<double> _firstChartValues ;
+
+        public ChartValues<double> FirstChartValues
+        {
+            get { return _firstChartValues; }
+            set { _firstChartValues = value; this.DoNotify(); }
+        }
+
+
 
 
 
@@ -48,33 +59,14 @@ namespace WpfApp2
         public MainviewModel()
         {
             //Inita();
+            
+
+            FirstChartValues = new ChartValues<double>();
+
             this.RefreshViewValueFromDatabase();
         }
 
-        public void Inita()
-        {
-
-
-
-            MyProperty = LocalDataAccess.GetInstance().GetTeachers()[1];
-
-            Console.WriteLine(MyProperty);
-
-
-            //System.Timers.Timer aTimer = new System.Timers.Timer();
-            //aTimer.Elapsed += new System.Timers.ElapsedEventHandler(dt_Tick);
-            //aTimer.Interval = 1000;//每秒执行一次
-            //aTimer.Enabled = true;
-            //void dt_Tick(object sender, EventArgs e)
-            //{
-
-            //    MyProperty = LocalDataAccess.GetInstance().GetTeachers()[1];
-            //    Console.WriteLine(MyProperty);
-            //}
-
-
-
-        }
+        
 
         private void RefreshViewValueFromDatabase()
         {
@@ -83,7 +75,6 @@ namespace WpfApp2
                 while (taskSwitch)
                 {
                     MyProperty = LocalDataAccess.GetInstance().GetTeachers()[0];
-                    
 
                     if (LocalDataAccess.GetInstance().GetBigdoorstatus()[0] == "off")
                     {
@@ -99,10 +90,31 @@ namespace WpfApp2
             }));
             taskList.Add(task);
 
+            var task1 = Task.Factory.StartNew(new Action(async () =>
+            {
+                while (taskSwitch)
+                {
 
-            
+                    double point1 = double.Parse(LocalDataAccess.GetInstance().GetTeachers()[0]);
+                    FirstChartValues.Add(point1);
+
+
+
+                    await Task.Delay(10000);
+                }
+            }));
+            taskList.Add(task1);
+
+
+
+
         }
 
+
+       
+
+
+        
 
 
     }
