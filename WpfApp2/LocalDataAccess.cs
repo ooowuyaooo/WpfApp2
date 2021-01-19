@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace WpfApp2
     public class LocalDataAccess
     {
         private static LocalDataAccess instance;
+        string dbConfig = ConfigurationManager.ConnectionStrings["db_config"].ToString(); //引用app.config里的字符串地址。
         private LocalDataAccess()
         {
 
@@ -46,7 +48,7 @@ namespace WpfApp2
         private bool DBConnection()
         {
             if (conn == null)
-                conn = new MySqlConnection("server=rm-uf6a477d150fh94852o.mysql.rds.aliyuncs.com;port=3306;user=zhangyi;password=Goodluck2020!; database=homeassistant;Allow User Variables=True");
+                conn = new MySqlConnection(dbConfig);
             try
             {
                 conn.Open();
